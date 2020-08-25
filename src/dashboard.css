@@ -1,7 +1,13 @@
 body {
-    background: url("https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80") no-repeat center/cover;
+    background: url("https://i.ibb.co/s514419/techBG.jpg") no-repeat center/cover;
     color: white;
     min-height: 100vh;
+}
+
+p {
+    text-shadow: 1px 2px black;
+    font-size: 1.3rem;
+    
 }
 
 .dashboard-container {
@@ -11,11 +17,13 @@ body {
     width: 80%;
     margin: 7rem auto 0 auto;
 }
+
 .left-flexbox {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 50%;
+    text-align: center;
 }
 
 a {
@@ -30,9 +38,9 @@ header {
     width: 90%;
     margin: 0 auto;
 }
-nav {
-    display: flex;
-    justify-content: space-between;
+
+.navbar  {
+    margin: 0 1.5rem;
 }
 
 img {
@@ -41,9 +49,10 @@ img {
 }
 
 .fake-btn {
-    border: 1px solid black;
-    padding: .5rem 1.2rem;
+    border: 2px solid black;
+    border-radius: 1rem;
+    padding: .5rem 1.1rem;
     background: slategray;
     text-align: center;
-    width: 30%;
+    width: 35%;
 }

@@ -170,7 +170,7 @@ const Dashboard = () => {
                     <h1>Use My Tech</h1>
                     <nav>
                         <Link to='/'>Home</Link>
-                        <Link to='/signup'>Sign Up</Link>
+                        <Link to='/signup' className='navbar'>Sign Up</Link>
                         <Link to="/login">Login</Link>
                     </nav>
                 </header>
