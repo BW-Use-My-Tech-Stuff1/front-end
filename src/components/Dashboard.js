@@ -4,7 +4,8 @@ import formSchema from './formSchema'
 import * as yup from 'yup'
 import axios from 'axios'
 import LoginForm from './LoginForm'
-import { Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import '../dashboard.css'
 
 const initialSignUpFormValues = {
     name: '',
@@ -163,23 +164,31 @@ const Dashboard = () => {
 
 
     return (
+        <Router>
         <div>
                 <header>
                     <h1>Use My Tech</h1>
                     <nav>
-                        <Link to="/login">Login</Link>
+                        <Link to='/'>Home</Link>
                         <Link to='/signup'>Sign Up</Link>
+                        <Link to="/login">Login</Link>
                     </nav>
                 </header>
 
-                <div className="dashboard-contanier">
-                  <div className="left-flexbox">  <p>
-                    Responsive web design partner network assets value proposition infographic equity bootstrapping crowdsource iPhone agile development. Business-to-consumer marketing buzz disruptive product management social media termsheet angel investor network effects strategy sales. Influencer interaction design social media. Gen-z buzz first mover advantage disruptive supply chain release gamification business-to-business success. Startup funding assets creative holy grail. Buyer user experience monetization branding hackathon focus sales business-to-consumer. Disruptive iPhone user experience graphical user interface series A financing low hanging fruit. Pitch crowdfunding long tail agile development mass market user experience iPad holy grail. Client agile development supply chain user experience ownership equity ramen beta channels graphical user interface. Business-to-consumer infrastructure angel investor buzz graphical user interface assets non-disclosure agreement founders early adopters customer hackathon value proposition interaction design mass market.
+                <div className="dashboard-container">
+                  <div className="left-flexbox"> 
+                    <p>
+                        Tired of paying ridiculous fees for 
+                        camera and other equipment rentals? 
+                        Bypass the middleman and rent from a real person!
                     </p>
-                    <button>Start Saving Now!</button>
+                    <Link to='/signup' className='fake-btn'>Start Saving Now!</Link>
+                   </div>
+                   <div> 
+                     <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" alt="tech" />
                     </div>
                 </div>
-
+        <Route path='/signup'>
           <SignUpForm
              values={signUpFormValues}
              update={update}
@@ -189,6 +198,8 @@ const Dashboard = () => {
              /* disabled={disabled} */
              errors={signUpFormErrors}     
             />
+            </Route>
+            <Route path='/login'>
            <LoginForm
              values={loginFormValues}
              update={loginUpdate}
@@ -197,7 +208,9 @@ const Dashboard = () => {
              /* disabled={disabled} */
              errors={loginFormErrors}     
             />
+            </Route>
         </div>
+        </Router>
     )
 }
 

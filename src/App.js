@@ -18,9 +18,6 @@ const App = () => {
   const addTech = (newTech) => {
     setTechEquipments([...techEquipments, newTech]);
   }; */
-  
-
-
 
   return (
     <>
