@@ -175,19 +175,7 @@ const Dashboard = () => {
                     </nav>
                 </header>
 
-                <div className="dashboard-container">
-                  <div className="left-flexbox"> 
-                    <p>
-                        Tired of paying ridiculous fees for 
-                        camera and other equipment rentals? 
-                        Bypass the middleman and rent from a real person!
-                    </p>
-                    <Link to='/signup' className='fake-btn'>Start Saving Now!</Link>
-                   </div>
-                   <div> 
-                     <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" alt="tech" />
-                    </div>
-                </div>
+               
         <Route path='/signup'>
           <SignUpForm
              values={signUpFormValues}
@@ -208,6 +196,21 @@ const Dashboard = () => {
              /* disabled={disabled} */
              errors={loginFormErrors}     
             />
+            </Route>
+            <Route exact path='/'>
+            <div className="dashboard-container">
+                  <div className="left-flexbox"> 
+                    <p>
+                        Tired of paying ridiculous fees for 
+                        camera and other equipment rentals? 
+                        Bypass the middleman and rent from a real person!
+                    </p>
+                    <Link to='/signup' className='fake-btn'>Start Saving Now!</Link>
+                   </div>
+                   <div> 
+                     <img src="https://images.unsplash.com/photo-1520390138845-fd2d229dd553?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80" alt="tech" />
+                    </div>
+                </div>
             </Route>
         </div>
         </Router>
