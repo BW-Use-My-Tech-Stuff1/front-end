@@ -1,33 +1,183 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
+import axios from 'axios'
+import {
+    Container,
+    Row,
+    Col,
+    Button,
+    Form,
+} from "react-bootstrap";
+import * as yup from 'yup'
+import formSchema from '../validation/formSchema'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import styled from 'styled-components'
 
-class AddTechItem extends Component {
-    state={
-        tech:{
-            dunno: 'dunno what structure you guys want'
-        }
+// page styles
+
+const Styleddiv = styled.div`
+    border: 1px solid black;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(172,255,0,1) 52%, rgba(79,121,9,1) 68%);
+    
+    .formCont {
+        width: 25%;
+        border: 1px solid green;
+        background: black;
     }
-    onChange =(e) => {
-        this.setState({
-            tech:{
-                ...this.state.tech,
-                [e.target.name]:e.target.value
-            }
+    .theForm {
+        width: 100%;
+    }
+    .label {
+        color: white;
+    }
+    .errors {
+        color: red;
+    }
+`
+
+
+// Initial form states
+
+const initialFormValues = {
+    name: '',
+    description: '',
+    price: '',
+}
+
+const initialFormErrors = {
+    name: '',
+    description: '',
+    price: '',
+}
+
+
+
+
+
+const AddTechItem = () => {
+
+    // State
+
+    const [items, setItems] = useState([])
+    const [formValues, setFormValues] = useState(initialFormValues)
+    const [formErrors, setFormErrors] = useState(initialFormErrors)
+
+    // Item post
+
+    const postNewFriend = newItem => {
+        axios.post('google.com', newItem)
+            .then(res => {
+                setItems([...items, res.data])
+            })
+            .catch(err => {
+                debugger
+            })
+            .finally(() => {
+                setFormValues(initialFormValues)
+            })
+    }
+
+    // Form Actions
+
+    const inputChange = (name, value) => {
+
+        yup
+            .reach(formSchema, name)
+            .validate(value)
+            .then(valid => {
+                setFormErrors({
+                    ...formErrors,
+                    [name]: "",
+                })
+            })
+            .catch(err => {
+                setFormErrors({
+                    ...formErrors,
+                    [name]: err.errors[0],
+                })
+            })
+
+        setFormValues({
+            ...formValues,
+            [name]: value
         })
     }
-    
-    onSubmit= (e) => {
-        e.preventDefault()
-        // axiosCallgoesHere (post req)
-        // set res to addTech(res..)
+
+    const submit = () => {
+        const newFriend = {
+            name: formValues.name.trim(),
+            description: formValues.description.trim(),
+            price: formValues.price.trim(),
+        }
+        postNewFriend(newFriend)
     }
 
-    render() {
-        return (
-            <div>
-                
-            </div>
-        )
+    // Event handlers
+
+    const onSubmit = evt => {
+        evt.preventDefault()
+        submit()
     }
+
+    const onInputChange = evt => {
+        const { name, value } = evt.target
+        inputChange(name, value)
+    }
+    return (
+        <Styleddiv>
+            <Container className='formCont' >
+                <Form onSubmit={onSubmit} className='theForm' >
+                    <Col>
+                        <Row>
+                            <Form.Group controlId="formName">
+                                <Form.Label className='label'>Name</Form.Label>
+                                <Form.Control
+                                    value={formValues.name}
+                                    type="text"
+                                    placeholder="Your name goes here!"
+                                    onChange={onInputChange}
+                                    name='name'
+                                />
+                            </Form.Group>
+                        </Row>
+                        <Row>
+                            <Form.Group controlId="formPrice">
+                                <Form.Label className='label'>Price</Form.Label>
+                                <Form.Control
+                                    value={formValues.price}
+                                    type="text"
+                                    placeholder="$0.00"
+                                    onChange={onInputChange}
+                                    name='price'
+                                />
+                            </Form.Group>
+                        </Row>
+                        <Row>
+                            <Form.Group controlId="formDescription">
+                                <Form.Label className='label'>Item Description</Form.Label>
+                                <Form.Control
+                                    value={formValues.description}
+                                    type="text"
+                                    placeholder="Describe the item you are renting out"
+                                    onChange={onInputChange}
+                                    name='description'
+                                    as='textarea'
+                                    rows='6'
+                                />
+                            </Form.Group>
+                        </Row>
+                    </Col>
+                    <Button variant="secondary" type="submit">Submit</Button>
+                </Form>
+                <div className='errors'>
+                    <div className='error'>{formErrors.name}</div>
+                    <div className='error'>{formErrors.price}</div>
+                    <div className='error'>{formErrors.description}</div>
+                </div>
+            </Container>
+        </Styleddiv>
+    )
+
 }
 
 export default AddTechItem
