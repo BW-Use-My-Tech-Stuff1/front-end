@@ -1,15 +1,15 @@
 import React from "react";
-/* import Header from "./components/Header";
+// import Header from "./components/Header";
 import { Route } from "react-router-dom";
-import Login from "./components/Login";
-import SignUp from "./components/SignUp";
-import PrivateRoute from "./components/PrivateRoute";
-import TechRentalList from "./components/TechRentalList";
-import AddTechItem from "./components/AddTechItem"; */
-/* import SignUpForm from './components/SignUpForm'
-import formSchema from './components/formSchema'
-import * as yup from 'yup'
-import axios from 'axios' */
+// import Login from "./components/Login";
+// import SignUp from "./components/SignUp";
+// import PrivateRoute from "./components/PrivateRoute";
+// import TechRentalList from "./components/TechRentalList";
+import AddTechItem from "./components/AddTechItem"; 
+// import SignUpForm from './components/SignUpForm'
+// import formSchema from './components/formSchema'
+// import * as yup from 'yup'
+// import axios from 'axios' 
 import Dashboard from './components/Dashboard'
 
 const App = () => {
@@ -21,7 +21,7 @@ const App = () => {
 
   return (
     <>
-add-tech-item
+
       {/* <Header />
 
     {/*   <Header />
@@ -37,7 +37,7 @@ master
 
       <Route
         path="/addtech"
-        component={() => <AddTechItem addTech={addTech} />}
+        component={() => <AddTechItem />}
       />
 
       <Dashboard />
