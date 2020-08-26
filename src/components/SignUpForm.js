@@ -2,17 +2,17 @@ import React from 'react'
 
 const SignUpForm = (props) => {
 
-    const {values, submit, update, inputChange, checkboxChange, disabled, errors} = props
+    const {values, submit, update, inputChange, /* checkboxChange, */ disabled, errors} = props
    
     const onSubmit = evt => {
         evt.preventDefault()
         submit()
       }
      
-    const onCheckboxChange = evt => {
+ /*    const onCheckboxChange = evt => {
         const { name, checked } = evt.target
         checkboxChange(name, checked)
-      }
+      } */
 
     const onInputChange = evt => {
         const {name, value} = evt.target
@@ -26,22 +26,34 @@ const SignUpForm = (props) => {
            <h2>Sign Up</h2>
 
             <div className='errors'>
-              <div>{errors.name}</div>
+              <div>{errors.fname}</div>
+              <div>{errors.lname}</div>
               <div>{errors.username}</div>
-              <div>{errors.email}</div>
+              {/* <div>{errors.email}</div> */}
               <div>{errors.password}</div>
-              <div>{errors.tos}</div>
+              {/* <div>{errors.tos}</div> */}
             </div>
 
             <div className='form-inputs'>
                 <label>
-                    Name:&nbsp;
+                  First Name:&nbsp;
                     <input
-                        value={values.name}
+                        value={values.fname}
                         onChange={onInputChange}
-                        name="name"
+                        name="fname"
                         type="text"
-                        placeholder="your name"
+                        placeholder="your first name"
+                    />
+                </label>
+                <br/>
+                <label>
+                  Last Name:&nbsp;
+                    <input
+                        value={values.lname}
+                        onChange={onInputChange}
+                        name="lname"
+                        type="text"
+                        placeholder="your last name"
                     />
                 </label>
                 <br/>
@@ -56,7 +68,7 @@ const SignUpForm = (props) => {
                     />
                 </label>
                 <br/>
-                <label>
+          {/*       <label>
                     Email:&nbsp;
                     <input
                         value={values.email}
@@ -66,7 +78,7 @@ const SignUpForm = (props) => {
                         placeholder="your email"
                     />
                 </label>
-                <br/>
+                <br/> */}
                 <label>
                     Password:&nbsp;
                     <input
@@ -78,7 +90,7 @@ const SignUpForm = (props) => {
                     />
                 </label>
                 <br/>
-                <label>
+            {/*     <label>
                     Do you agree to our Terms of Service?:&nbsp;
                     <input
                         value={values.tos}
@@ -87,7 +99,7 @@ const SignUpForm = (props) => {
                         type="checkbox"
                     />
                 </label>
-                <br/>
+                <br/> */}
                 <button disabled={disabled}> Get Started! </button>
             </div>
        </form>
