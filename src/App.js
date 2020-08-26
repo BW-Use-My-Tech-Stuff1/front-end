@@ -16,7 +16,7 @@ const App = () => {
 
   return (
     <>
-      <Header />
+      {/* <Header />
       <Route path="/login" component={Login} />
       <Route path="/signup" component={SignUp} />
       <PrivateRoute path="/tech" component={TechRentalList} />
@@ -24,7 +24,11 @@ const App = () => {
         path="/addtech"
         component={() => <AddTechItem addTech={addTech} />}
       />
-      <PrivateRoute path="/techlist" component={TechRentalList} />
+      <PrivateRoute path="/techlist" component={TechRentalList} /> */}
+      <Route
+        path="/addtech"
+        component={() => <AddTechItem addTech={addTech} />}
+      />
     </>
   );
 };
