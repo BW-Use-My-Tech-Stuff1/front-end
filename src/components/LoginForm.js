@@ -20,11 +20,11 @@ export class  LoginForm extends Component {
 			.then((res) => {
 				// console.log(res.data.user.id)      
 				localStorage.setItem('token', res.data.token);
-				this.props.history.push('/techlist');
 			})
 			.catch((err) => {
 				console.log('ErrorERRORerror', err);
-			});
+            });
+            this.props.history.push('/techlist')
         // submit()
       }
 
