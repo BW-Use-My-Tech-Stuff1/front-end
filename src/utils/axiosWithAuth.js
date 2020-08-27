@@ -5,8 +5,12 @@ export const axiosWithAuth =() => {
     return axios.create({
         baseURL: 'https://usemytechstuff-app.herokuapp.com/api',
         headers: {
-            Authorization: token,
+            token: token,
         },
     });
 };
 
+        // inputChange(name, value)
+        // update(name, value)
+            // const {values, submit, update, inputChange, disabled, errors} = props
+               // submit()

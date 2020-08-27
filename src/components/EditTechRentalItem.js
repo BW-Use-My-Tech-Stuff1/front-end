@@ -1,5 +1,14 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import styled from 'styled-components'
+import {
+    Container,
+    Row,
+    Col,
+    Button,
+    Form,
+} from "react-bootstrap";
+import { axiosWithAuth } from '../utils/axiosWithAuth'
+import { useHistory, useParams } from 'react-router-dom'
 
 // page styles
 
@@ -20,65 +29,72 @@ const Styleddiv = styled.div`
         color: white;
     }
 `
+const initialState = {
+    techName: '',
+    description: '',
+    condition: '',
+    price: ''
+  };
+  
 
-const initialFormState = {
-  id: '',
-  name: '',
-  price: '',
-  description: '',
+const EditTechRentalItem = (props) => {
+    const [tech, setTech] = useState(initialState)
+    const { id } = useParams()
+    const history = useHistory()
+    const { setTechEquipments, techEquipments } = props
+
+
+  useEffect(()=>{
+    axiosWithAuth()
+    .get(`/tech/${id}`)
+    .then((res)=>{
+      setTech(res.data)
+    })
+  },[id])
+
+  const onChange = (e) => {
+    setTech({
+  ...tech,
+        [e.target.name]: e.target.value
+    });
 }
 
-const EditTechRentalItem = () => {
-  state = {
-    tech: {
-      id: '',
-      name: '',
-      price: '',
-      description: '',
-    }
-  }
-  onChange = (e) => {
-    this.setState({
-      tech: {
-        ...this.state.tech,
-        [e.target.name]: e.target.value
-      }
-    })
-  }
-
-  const resetForm = () => this.setState(initialFormState)
-
-  onSubmit = (e) => {
-    e.preventDefault()
-    const putQuote = ({ id, name, price, description }) => {
-      axios.put(``, { name, price, description })
-        .then(res => {
-          this.setState(this.state.map(item => {
-            return item.id === id ? res.data : item
-          }))
+const changeTech = (e) => {
+    e.preventDefault();
+    axiosWithAuth()
+        .put(`/tech/${id}`, tech)
+        .then((res) => {
+            setTech(tech)
+            setTechEquipments([...techEquipments,tech])		
         })
-        .catch(err => {
-          debugger
-        })
-        .finally(resetForm)
-    }
-  }
+    history.push('/techlist');
+};
 
-
-  render() {
+  
     return (
       <Styleddiv>
         <Container className='formCont' >
-          <Form onSubmit={onSubmit} className='theForm' >
+          <Form onSubmit={changeTech} className='theForm' >
             <Col>
               <Row>
                 <Form.Group controlId="formName">
                   <Form.Label className='label'>Name</Form.Label>
                   <Form.Control
-                    value={this.state.name}
+                    value={tech.techName}
                     type="text"
                     onChange={onChange}
-                    name='name'
+                    name='techName'
+                  />
+                </Form.Group>
+              </Row>
+              <Row>
+                <Form.Group controlId="formName">
+                  <Form.Label className='label'>Item condition</Form.Label>
+                  <Form.Control
+                    value={tech.condition}
+                    type="text"
+                    onChange={onChange}
+                    name='condition'
                   />
                 </Form.Group>
               </Row>
@@ -86,7 +102,7 @@ const EditTechRentalItem = () => {
                 <Form.Group controlId="formPrice">
                   <Form.Label className='label'>Price</Form.Label>
                   <Form.Control
-                    value={this.state.price}
+                    value={tech.price}
                     type="text"
                     onChange={onChange}
                     name='price'
@@ -97,7 +113,7 @@ const EditTechRentalItem = () => {
                 <Form.Group controlId="formDescription">
                   <Form.Label className='label'>Item Description</Form.Label>
                   <Form.Control
-                    value={this.state.description}
+                    value={tech.description}
                     type="text"
                     onChange={onChange}
                     name='description'
@@ -112,7 +128,7 @@ const EditTechRentalItem = () => {
         </Container>
       </Styleddiv>
     )
-  }
+
 }
 
 export default EditTechRentalItem;

@@ -1,56 +1,82 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { axiosWithAuth } from '../utils/axiosWithAuth'
 
 
-const LoginForm = (props) => {
 
-    const {values, submit, update, inputChange, disabled, errors} = props
+export class  LoginForm extends Component {    	
+
+    state = {
+		credentials: {
+			username: '',
+			password: ''
+		}
+	};
+    // const {values, submit, update, inputChange, disabled, errors} = props
    
-    const onSubmit = evt => {
-        evt.preventDefault()
-        submit()
+     onSubmit = evt => {
+		evt.preventDefault();
+		axiosWithAuth()
+			.post('/login', this.state.credentials)
+			.then((res) => {
+				console.log(res.data.user.id)      
+				// localStorage.setItem('token', res.data.token);
+				// this.props.history.push('/techlist');
+			})
+			.catch((err) => {
+				console.log('ErrorERRORerror', err);
+			});
+        // submit()
       }
 
-    const onInputChange = evt => {
-        const {name, value} = evt.target
-        inputChange(name, value)
-        update(name, value)
+     onInputChange = evt => {        
+        this.setState({
+            credentials:{
+                ...this.state.credentials,
+                [evt.target.name]: evt.target.value
+            }
+            
+        // inputChange(name, value)
+        // update(name, value)
+        })
+
       }
 
-
+render(){
+    
     return (
-       <form onSubmit={onSubmit}>
-           <h2>Login</h2>
-
-            <div className='errors'>
-              <div>{errors.username}</div>
-              <div>{errors.password}</div>
-            </div>
-
-            <div className='form-inputs'>
-                <label>
-                    Username:&nbsp;
-                    <input
-                        value={values.username}
-                        onChange={onInputChange}
-                        name="username"
-                        type="text"
-                    />
-                </label>
-                <br/>
-                <label>
-                    Password:&nbsp;
-                    <input
-                        value={values.password}
-                        onChange={onInputChange}
-                        name="password"
-                        type="password"
-                    />
-                </label>
-                <br/>
-                <button disabled={disabled}> Login </button>
-            </div>
-       </form>
-    )
+        <form onSubmit={this.onSubmit}>
+            <h2>Login</h2>
+             {/* <div className='errors'>
+               <div>{errors.username}</div>
+               <div>{errors.password}</div>
+             </div> */}
+             <div className='form-inputs'>
+                 <label>
+                     Username:&nbsp;
+                     <input
+                         value={this.state.credentials.username}
+                         onChange={this.onInputChange}
+                         name="username"
+                         type="text"
+                     />
+                 </label>
+                 <br/>
+                 <label>
+                     Password:&nbsp;
+                     <input
+                         value={this.state.credentials.password}
+                         onChange={this.onInputChange}
+                         name="password"
+                         type="password"
+                     />
+                 </label>
+                 <br/>
+                 <button disabled={this.props.disabled}> Login </button>
+             </div>
+        </form>
+     )
+ }
+ 
+    
 }
-
 export default LoginForm

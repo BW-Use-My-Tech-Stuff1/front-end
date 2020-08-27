@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import axios from 'axios'
 import {
     Container,
     Row,
@@ -7,10 +6,12 @@ import {
     Button,
     Form,
 } from "react-bootstrap";
-import * as yup from 'yup'
-import formSchema from '../validation/formSchema'
+// import * as yup from 'yup'
+// import formSchema from '../validation/formSchema'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components'
+import { axiosWithAuth } from '../utils/axiosWithAuth';
+import { useHistory } from 'react-router-dom'
 
 // page styles
 
@@ -39,90 +40,74 @@ const Styleddiv = styled.div`
 // Initial form states
 
 const initialFormValues = {
-    name: '',
+    techName: '',
     description: '',
     price: '',
+    condition:''
 }
 
-const initialFormErrors = {
-    name: '',
-    description: '',
-    price: '',
-}
+// const initialFormErrors = {
+//     name: '',
+//     description: '',
+//     price: '',
+//     condition:''
+// }
 
 
-
-
-
-const AddTechItem = () => {
-
+const AddTechItem = (props) => {
     // State
-
-    const [items, setItems] = useState([])
-    const [formValues, setFormValues] = useState(initialFormValues)
-    const [formErrors, setFormErrors] = useState(initialFormErrors)
-
+    const [item, setItem] = useState(initialFormValues)
+    const history = useHistory()
+    const { setTechEquipments, techEquipments } = props
+      // const [formErrors, setFormErrors] = useState(initialFormErrors)
     // Item post
-
-    const postNewFriend = newItem => {
-        axios.post('google.com', newItem)
-            .then(res => {
-                setItems([...items, res.data])
-            })
-            .catch(err => {
-                debugger
-            })
-            .finally(() => {
-                setFormValues(initialFormValues)
-            })
-    }
-
     // Form Actions
+    // const inputChange = (name, value) => {
+    //     yup
+    //         .reach(formSchema, name)
+    //         .validate(value)
+    //         .then(valid => {
+    //             setFormErrors({
+    //                 ...formErrors,
+    //                 [name]: "",
+    //             })
+    //         })
+    //         .catch(err => {
+    //             setFormErrors({
+    //                 ...formErrors,
+    //                 [name]: err.errors[0],
+    //             })
+    //         })
 
-    const inputChange = (name, value) => {
+    //     setFormValues({
+    //         ...formValues,
+    //         [name]: value
+    //     })
+    // }
+    // Event handlers    
 
-        yup
-            .reach(formSchema, name)
-            .validate(value)
-            .then(valid => {
-                setFormErrors({
-                    ...formErrors,
-                    [name]: "",
-                })
-            })
-            .catch(err => {
-                setFormErrors({
-                    ...formErrors,
-                    [name]: err.errors[0],
-                })
-            })
-
-        setFormValues({
-            ...formValues,
-            [name]: value
-        })
-    }
-
-    const submit = () => {
-        const newFriend = {
-            name: formValues.name.trim(),
-            description: formValues.description.trim(),
-            price: formValues.price.trim(),
-        }
-        postNewFriend(newFriend)
-    }
-
-    // Event handlers
 
     const onSubmit = evt => {
         evt.preventDefault()
-        submit()
+        axiosWithAuth()
+        .post('users/1',item)
+        .then((res)=>{
+            setTechEquipments([...techEquipments,res.data])
+        })
+        .catch((err)=>console.log(err))
+        .finally(()=>{
+            history.push('/techlist')
+        })
+        // evt.preventDefault()
+        // axiosWithAuth()
+        // .post('/users/1',item)
+        // .then((res)=>{console.log(item)})
     }
 
     const onInputChange = evt => {
-        const { name, value } = evt.target
-        inputChange(name, value)
+        setItem({...item,[evt.target.name]:evt.target.value.trim()})
     }
+
     return (
         <Styleddiv>
             <Container className='formCont' >
@@ -132,11 +117,23 @@ const AddTechItem = () => {
                             <Form.Group controlId="formName">
                                 <Form.Label className='label'>Name</Form.Label>
                                 <Form.Control
-                                    value={formValues.name}
+                                    value={item.techName}
                                     type="text"
                                     placeholder="Your name goes here!"
                                     onChange={onInputChange}
-                                    name='name'
+                                    name='techName'
+                                />
+                            </Form.Group>
+                        </Row>
+                        <Row>
+                            <Form.Group controlId="formCondition">
+                                <Form.Label className='label'>Condition</Form.Label>
+                                <Form.Control
+                                    value={item.condition}
+                                    type="text"
+                                    placeholder="Item Condition"
+                                    onChange={onInputChange}
+                                    name='condition'
                                 />
                             </Form.Group>
                         </Row>
@@ -144,7 +141,7 @@ const AddTechItem = () => {
                             <Form.Group controlId="formPrice">
                                 <Form.Label className='label'>Price</Form.Label>
                                 <Form.Control
-                                    value={formValues.price}
+                                    value={item.price}
                                     type="text"
                                     placeholder="$0.00"
                                     onChange={onInputChange}
@@ -156,7 +153,7 @@ const AddTechItem = () => {
                             <Form.Group controlId="formDescription">
                                 <Form.Label className='label'>Item Description</Form.Label>
                                 <Form.Control
-                                    value={formValues.description}
+                                    value={item.description}
                                     type="text"
                                     placeholder="Describe the item you are renting out"
                                     onChange={onInputChange}
@@ -169,11 +166,11 @@ const AddTechItem = () => {
                     </Col>
                     <Button variant="secondary" type="submit">Submit</Button>
                 </Form>
-                <div className='errors'>
+                {/* <div className='errors'>
                     <div className='error'>{formErrors.name}</div>
                     <div className='error'>{formErrors.price}</div>
                     <div className='error'>{formErrors.description}</div>
-                </div>
+                </div> */}
             </Container>
         </Styleddiv>
     )
