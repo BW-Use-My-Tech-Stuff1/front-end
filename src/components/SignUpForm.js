@@ -1,97 +1,82 @@
-import React from 'react'
+import React, { Component } from 'react';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
-const SignUpForm = (props) => {
+class SignUpForm extends Component {
+	state = {	
+			username: '',
+            password: '',
+            firstname:'',
+            lastname:''
+	};
 
-    const {values, submit, update, inputChange, checkboxChange, disabled, errors} = props
-   
-    const onSubmit = evt => {
-        evt.preventDefault()
-        submit()
-      }
-     
-    const onCheckboxChange = evt => {
-        const { name, checked } = evt.target
-        checkboxChange(name, checked)
-      }
+	signup = (e) => {
+		e.preventDefault();
+        axiosWithAuth()
+        .post('/signup',this.state)
+        .then(res=>console.log(res))
+		this.props.history.push('/techlist');
+	};
+	onCheckboxChange = (evt) => {
+		const { name, checked } = evt.target;
+		this.checkboxChange(name, checked);
+	};
 
-    const onInputChange = evt => {
-        const {name, value} = evt.target
-        inputChange(name, value)
-        update(name, value)
-      }
+	handleChange = (e) => {
+		this.setState({
+            ...this.state.user,
+			[e.target.name]: e.target.value
+		});
+	};
+	render() {
+		return (
+			<form onSubmit={this.signup}>
+				<h2>Sign Up</h2>
 
+				{/* <div className='errors'>
+					<div>{errors.name}</div>
+					<div>{errors.username}</div>
+					<div>{errors.email}</div>
+					<div>{errors.password}</div>
+					<div>{errors.tos}</div>
+				</div> */}
 
-    return (
-       <form onSubmit={onSubmit}>
-           <h2>Sign Up</h2>
-
-            <div className='errors'>
-              <div>{errors.name}</div>
-              <div>{errors.username}</div>
-              <div>{errors.email}</div>
-              <div>{errors.password}</div>
-              <div>{errors.tos}</div>
-            </div>
-
-            <div className='form-inputs'>
-                <label>
-                    Name:&nbsp;
-                    <input
-                        value={values.name}
-                        onChange={onInputChange}
-                        name="name"
-                        type="text"
-                        placeholder="your name"
-                    />
-                </label>
-                <br/>
-                <label>
-                    Username:&nbsp;
-                    <input
-                        value={values.username}
-                        onChange={onInputChange}
-                        name="username"
-                        type="text"
-                        placeholder="choose a username"
-                    />
-                </label>
-                <br/>
-                <label>
-                    Email:&nbsp;
-                    <input
-                        value={values.email}
-                        onChange={onInputChange}
-                        name="email"
-                        type="email"
-                        placeholder="your email"
-                    />
-                </label>
-                <br/>
-                <label>
-                    Password:&nbsp;
-                    <input
-                        value={values.password}
-                        onChange={onInputChange}
-                        name="password"
-                        type="password"
-                        placeholder="choose a password"
-                    />
-                </label>
-                <br/>
-                <label>
-                    Do you agree to our Terms of Service?:&nbsp;
-                    <input
-                        value={values.tos}
-                        onChange={onCheckboxChange}
-                        name="tos"
-                        type="checkbox"
-                    />
-                </label>
-                <br/>
-                <button disabled={disabled}> Get Started! </button>
-            </div>
-       </form>
-    )
+				<div className='form-inputs'>
+					<label>
+						Name:&nbsp;
+						<input value={this.state.firstname} onChange={this.handleChange} name='firstname' type='text' placeholder='your first Name' />
+					</label>
+					<br />
+					<label>
+						Last Name:&nbsp;
+						<input value={this.state.lastname} onChange={this.handleChange} name='lastname' type='text' placeholder='Last Name' />
+					</label>
+					<br />
+					<label>
+						Username:&nbsp;
+						<input value={this.state.username} onChange={this.handleChange} name='username' type='text' placeholder='choose a username' />
+					</label>
+					<br />
+					<label>
+						Password:&nbsp;
+						<input
+							value={this.state.password}
+							onChange={this.handleChange}
+							name='password'
+							type='password'
+							placeholder='choose a password'
+						/>
+					</label>
+					<br />
+					<label>
+						Do you agree to our Terms of Service?:&nbsp;
+						<input value={this.state.tos} onChange={this.props.onCheckboxChange} name='tos' type='checkbox' />
+					</label>
+					<br />
+					<button disabled={this.props.disabled}> Get Started! </button>
+				</div>
+			</form>
+		);
+	}
 }
 
-export default SignUpForm
+export default SignUpForm;
