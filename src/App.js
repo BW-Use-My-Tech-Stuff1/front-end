@@ -1,5 +1,5 @@
 import React from "react";
-import AddNewTechItem from "./components/AddNewTechItem"; 
+//import AddNewTechItem from "./components/AddNewTechItem"; 
 import Dashboard from './components/Dashboard'
 
 
