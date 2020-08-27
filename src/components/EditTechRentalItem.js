@@ -65,7 +65,7 @@ const changeTech = (e) => {
         .put(`/tech/${id}`, tech)
         .then((res) => {
             setTech(tech)
-            setTechEquipments([...techEquipments,tech])		
+            setTechEquipments([...techEquipments])		
         })
     history.push('/techlist');
 };
