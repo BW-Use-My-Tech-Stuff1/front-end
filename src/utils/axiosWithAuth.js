@@ -3,10 +3,14 @@ import axios from 'axios';
 export const axiosWithAuth =() => {
     const token = localStorage.getItem('token');
     return axios.create({
-        baseURL: 'http://localhost:5000/api',
+        baseURL: 'https://usemytechstuff-app.herokuapp.com/api',
         headers: {
-            Authorization: token,
+            token: token,
         },
     });
 };
 
+        // inputChange(name, value)
+        // update(name, value)
+            // const {values, submit, update, inputChange, disabled, errors} = props
+               // submit()

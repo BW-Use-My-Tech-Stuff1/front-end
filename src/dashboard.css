@@ -33,7 +33,7 @@ a {
 
 header {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     width: 90%;
     margin: 0 auto;
