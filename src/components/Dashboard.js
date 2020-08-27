@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route, Link, useHistory } from 'react-router-d
 import '../dashboard.css';
 import Header from './Header';
 import PrivateRoute from './PrivateRoute';
-import AddTechItem from './AddTechItem';
+import AddTechItem from './AddTechItem.js';
 import TechRentalList from './TechRentalList';
 import EditTechRentalItem from './EditTechRentalItem';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
@@ -52,6 +52,7 @@ const Dashboard = (props) => {
 	const update = (inputName, inputData) => {
 		setSignUpFormValues({ ...signUpFormValues, [inputName]: inputData });
 	};
+	setDisabled(disabled)
 
 	const loginUpdate = (loginInput, loginData) => {
 		setLoginFormValues({ ...loginFormValues, [loginInput]: loginData });
