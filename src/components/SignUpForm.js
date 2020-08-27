@@ -17,7 +17,8 @@ const Styleddiv = styled.div`
        align-items: center;
 	   color: white;
 	   font-weight:bold;
-	   text-shadow:1px 1px black
+       text-shadow:1px 1px black;
+       min-height: 60vh;
    }
    input, input[placeholder] {
     text-align: center;
