@@ -18,9 +18,9 @@ export class  LoginForm extends Component {
 		axiosWithAuth()
 			.post('/login', this.state.credentials)
 			.then((res) => {
-				console.log(res.data.user.id)      
-				// localStorage.setItem('token', res.data.token);
-				// this.props.history.push('/techlist');
+				// console.log(res.data.user.id)      
+				localStorage.setItem('token', res.data.token);
+				this.props.history.push('/techlist');
 			})
 			.catch((err) => {
 				console.log('ErrorERRORerror', err);
@@ -71,7 +71,7 @@ render(){
                      />
                  </label>
                  <br/>
-                 <button disabled={this.props.disabled}> Login </button>
+                 <button> Login </button>
              </div>
         </form>
      )
