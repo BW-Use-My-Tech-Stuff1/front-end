@@ -187,7 +187,7 @@ const Dashboard = (props) => {
 						values={loginFormValues}
 						update={loginUpdate}
 						inputChange={loginInputChange}
-						/* disabled={disabled} */
+						 disabled={disabled} 
 						submit={submit}
 						errors={loginFormErrors}
 						history={history}
