@@ -54,7 +54,7 @@ const initialFormValues = {
 // }
 
 
-const AddTechItem = (props) => {
+const AddNewTechItem = (props) => {
     // State
     const [item, setItem] = useState(initialFormValues)
     const history = useHistory()
@@ -177,4 +177,4 @@ const AddTechItem = (props) => {
 
 }
 
-export default AddTechItem
+export default AddNewTechItem
