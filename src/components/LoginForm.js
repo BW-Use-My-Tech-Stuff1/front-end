@@ -1,6 +1,33 @@
 import React, { Component } from 'react'
 import { axiosWithAuth } from '../utils/axiosWithAuth'
+import { Button, Form, FormGroup } from 'reactstrap';
+import styled from 'styled-components'
 
+//stlyes
+const Styleddiv = styled.div`
+   
+    width: 30%;
+    margin: 0 auto;
+   
+   .form-inputs {
+       display: flex;
+       flex-direction: column;
+       justify-content: center;
+       align-items: center;
+       color: white;
+       font-weight:bold;
+       text-shadow:1px 1px black;
+       min-height: 60vh;
+   }
+   input, input[placeholder] {
+    text-align: center;
+}
+   h2 {
+       text-align: center;
+       color: white;
+       text-shadow: 2px 1px black;
+   }
+`
 
 
 export class  LoginForm extends Component {    	
@@ -44,36 +71,39 @@ export class  LoginForm extends Component {
 render(){
     
     return (
-        <form onSubmit={this.onSubmit}>
+        <Styleddiv>
+        <Form class="loginStyles" onSubmit={this.onSubmit}>
             <h2>Login</h2>
              {/* <div className='errors'>
                <div>{errors.username}</div>
                <div>{errors.password}</div>
              </div> */}
              <div className='form-inputs'>
-                 <label>
-                     Username:&nbsp;
+                 <FormGroup>
+                
                      <input
                          value={this.state.credentials.username}
                          onChange={this.onInputChange}
                          name="username"
                          type="text"
+                         placeholder="Username"
                      />
-                 </label>
-                 <br/>
-                 <label>
-                     Password:&nbsp;
+                 </FormGroup>
+                 <FormGroup>   
+                
                      <input
                          value={this.state.credentials.password}
                          onChange={this.onInputChange}
                          name="password"
                          type="password"
+                         placeholder="Password"
                      />
-                 </label>
-                 <br/>
-                 <button> Login </button>
+                 
+                 </FormGroup>
+                 <Button  color="primary"   > Login </Button>
              </div>
-        </form>
+        </Form>
+        </Styleddiv>
      )
  }
  

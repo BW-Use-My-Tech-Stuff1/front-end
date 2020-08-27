@@ -1,5 +1,34 @@
 import React, { Component } from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
+import { Button, Form, FormGroup } from 'reactstrap';
+import styled from 'styled-components'
+
+//stlyes
+const Styleddiv = styled.div`
+    
+    width: 50%;
+    margin: 0 auto;
+    
+
+   .form-inputs {
+       display: flex;
+       flex-direction: column;
+       justify-content: center;
+       align-items: center;
+	   color: white;
+	   font-weight:bold;
+       text-shadow:1px 1px black;
+       min-height: 60vh;
+   }
+   input, input[placeholder] {
+    text-align: center;
+}
+   h2 {
+       text-align: center;
+       color: white;
+       text-shadow: 2px 1px black;
+   }
+`
 
 class SignUpForm extends Component {
 	state = {	
@@ -29,7 +58,9 @@ class SignUpForm extends Component {
 	};
 	render() {
 		return (
-			<form onSubmit={this.signup}>
+			<Styleddiv>
+                
+			<Form onSubmit={this.signup}>
 				<h2>Sign Up</h2>
 
 				{/* <div className='errors'>
@@ -41,23 +72,24 @@ class SignUpForm extends Component {
 				</div> */}
 
 				<div className='form-inputs'>
+					<FormGroup>
 					<label>
-						Name:&nbsp;
-						<input value={this.state.firstname} onChange={this.handleChange} name='firstname' type='text' placeholder='your first Name' />
-					</label>
-					<br />
+						First Name:&nbsp;</label>
+						<input value={this.state.firstname} onChange={this.handleChange} name='firstname' type='text' placeholder='First Name' />
+						</FormGroup>
+						<FormGroup>
 					<label>
-						Last Name:&nbsp;
+						Last Name:&nbsp;</label>
 						<input value={this.state.lastname} onChange={this.handleChange} name='lastname' type='text' placeholder='Last Name' />
-					</label>
-					<br />
+						</FormGroup>
+						<FormGroup>
 					<label>
-						Username:&nbsp;
+						Username:&nbsp;</label>
 						<input value={this.state.username} onChange={this.handleChange} name='username' type='text' placeholder='choose a username' />
-					</label>
-					<br />
+						</FormGroup>
+						<FormGroup>
 					<label>
-						Password:&nbsp;
+						Password:&nbsp;</label>
 						<input
 							value={this.state.password}
 							onChange={this.handleChange}
@@ -65,16 +97,17 @@ class SignUpForm extends Component {
 							type='password'
 							placeholder='choose a password'
 						/>
-					</label>
-					<br />
+						</FormGroup>
+						<FormGroup>
 					<label>
-						Do you agree to our Terms of Service?:&nbsp;
+						Do you agree to our Terms of Service?:&nbsp;</label>
 						<input value={this.state.tos} onChange={this.props.onCheckboxChange} name='tos' type='checkbox' />
-					</label>
-					<br />
-					<button disabled={this.props.disabled}> Get Started! </button>
+						</FormGroup>
+					
+					<Button color="primary"  disabled={this.props.disabled}> Get Started! </Button>
 				</div>
-			</form>
+			</Form>
+			</Styleddiv>
 		);
 	}
 }
