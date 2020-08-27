@@ -7,10 +7,10 @@ import { BrowserRouter as Router, Route, Link, useHistory } from 'react-router-d
 import '../dashboard.css';
 import Header from './Header';
 import PrivateRoute from './PrivateRoute';
-import AddTechItem from './AddTechItem.js';
 import TechRentalList from './TechRentalList';
 import EditTechRentalItem from './EditTechRentalItem';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
+import AddNewTechItem from './AddNewTechItem'
 
 const initialSignUpFormValues = {
 	name: '',
@@ -52,7 +52,7 @@ const Dashboard = (props) => {
 	const update = (inputName, inputData) => {
 		setSignUpFormValues({ ...signUpFormValues, [inputName]: inputData });
 	};
-	setDisabled(disabled)
+	
 
 	const loginUpdate = (loginInput, loginData) => {
 		setLoginFormValues({ ...loginFormValues, [loginInput]: loginData });
@@ -213,7 +213,7 @@ const Dashboard = (props) => {
 			</Route>
 			<PrivateRoute
 				path='/addtech'
-				component={() => <AddTechItem history={history} setTechEquipments={setTechEquipments} techEquipments={techEquipments} />}
+				component={() => <AddNewTechItem history={history} setTechEquipments={setTechEquipments} techEquipments={techEquipments} />}
 			/>
 			<PrivateRoute
 				path='/techlist'
