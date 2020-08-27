@@ -13,20 +13,20 @@ import { useHistory, useParams } from 'react-router-dom'
 // page styles
 
 const Styleddiv = styled.div`
-    border: 1px solid black;
-    background: rgb(2,0,36);
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(172,255,0,1) 52%, rgba(79,121,9,1) 68%);
-    
+  width: 100%;
     .formCont {
         width: 25%;
-        border: 1px solid green;
-        background: black;
+        border: 1px solid white;
+        background: #F0F8FF;
+        box-shadow: 5px 10px #888888;
+        border-radius: 1%;
+        margin-top: 15vh;
     }
     .theForm {
         width: 100%;
     }
     .label {
-        color: white;
+        color: black;
     }
 `
 const initialState = {
